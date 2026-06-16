@@ -176,6 +176,11 @@ function showHideJobs() {
     let card = document.getElementById(String(i))
     let job = jobs.find(j => j.id === i)
     
+    if(!job) {
+            card.style.display = "none"
+            continue
+        }
+
     if(activeTab === "all") {
       card.style.display = "flex"
       hasJobs = true  // Always have jobs in "All" tab
@@ -237,6 +242,24 @@ function rejectClickHandler(jobId) {
     appliedStatus.innerHTML = "REJECTED"
     showHideJobs()  // Update visibility
 }
+
+function deleteJobs(jobId){
+    let jobIndex=jobs.findIndex(j=> j.id===jobId)
+    if(jobIndex !==-1){
+        jobs.splice(jobIndex,1)
+    }
+    updateCounts()
+    showHideJobs()
+}
+for(let i=1;i<=8;i++){
+    let delBtn=document.getElementById("del-" + i)
+    if (delBtn){
+         delBtn.addEventListener("click",function(){
+         deleteJobs(i)
+         })
+    }
+}
+
 
 // Load with "All" tab showing
 showHideJobs()
