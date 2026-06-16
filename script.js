@@ -170,7 +170,7 @@ document.getElementById("rejected-btn-8").addEventListener("click", function () 
 let activeTab = "all"
 
 function showHideJobs() {
-  let hasJobs = false  // Track if we found any jobs to show
+  let hasJobs = false  // Tracker for jobs
   
   for(let i = 1; i <= 8; i++) {
     let card = document.getElementById(String(i))
@@ -183,31 +183,30 @@ function showHideJobs() {
 
     if(activeTab === "all") {
       card.style.display = "flex"
-      hasJobs = true  // Always have jobs in "All" tab
+      hasJobs = true  //  "All" section
     }
     else if(activeTab === "interview" && job.status === "interview") {
       card.style.display = "flex"
-      hasJobs = true  // Found an interview job
+      hasJobs = true  // interview section
     }
     else if(activeTab === "rejected" && job.status === "rejected") {
       card.style.display = "flex"
-      hasJobs = true  // Found a rejected job
+      hasJobs = true  // Rejects section
     }
     else {
       card.style.display = "none"
     }
   }
   
-  // Show "No Jobs Available" only if we're NOT on "All" tab AND found no jobs
   let noJobsMessage = document.getElementById("nojobsprv")
   if(activeTab !== "all" && !hasJobs) {
-    noJobsMessage.classList.remove("hidden")  // Show message
+    noJobsMessage.classList.remove("hidden")  
   } else {
-    noJobsMessage.classList.add("hidden")     // Hide message
+    noJobsMessage.classList.add("hidden")   
   }
 }
 
-// Tab buttons
+
 document.getElementById("all-btn").addEventListener("click", function() {
   activeTab = "all"
   showHideJobs()
@@ -223,24 +222,24 @@ document.getElementById("rej-btn").addEventListener("click", function() {
   showHideJobs()
 })
 
-// When interview button is clicked
+
 function interviewClickHandler(jobId) {
     let job = jobs.find(j => j.id === jobId)
     job.status = "interview"
     updateCounts()
     let appliedStatus = document.getElementById("status-" + jobId)
     appliedStatus.innerHTML = "INTERVIEWED"
-    showHideJobs()  // Update visibility
+    showHideJobs() 
 }
 
-// When reject button is clicked
+
 function rejectClickHandler(jobId) {
     let job = jobs.find(j => j.id === jobId)
     job.status = "rejected"
     updateCounts()
     let appliedStatus = document.getElementById("status-" + jobId)
     appliedStatus.innerHTML = "REJECTED"
-    showHideJobs()  // Update visibility
+    showHideJobs() 
 }
 
 function deleteJobs(jobId){
@@ -261,5 +260,5 @@ for(let i=1;i<=8;i++){
 }
 
 
-// Load with "All" tab showing
+
 showHideJobs()
